@@ -46,7 +46,7 @@ def Main(ProdObject):
     
     chrome_options = Options()
     chrome_options.add_argument("--no-first-run")
-    chrome_options.add_argument("--no-default-browser-check")
+    chrome_options.add_argument("--no-default-browser-check")   
     chrome_options.add_argument("--disable-search-engine-choice-screen")
 
     service = Service(executable_path='C:/Users/leona/Desktop/ML stuff/chromedriver-win64/chromedriver.exe')
@@ -73,9 +73,11 @@ def Main(ProdObject):
             new_height = driver.execute_script("return document.body.scrollHeight")
             
             if new_height == last_height:
-                
-                print("No more content to load.")
-                break
+                time.sleep(3)
+                new_height = driver.execute_script("return document.body.scrollHeight")
+                if new_height == last_height:
+                    print("No more content to load.")
+                    break
             
         last_height = new_height
         
